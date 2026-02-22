@@ -10,7 +10,6 @@ bg_music = pygame.mixer.Sound('audio/music.wav')
 bg_music.set_volume(0.1)
 
 eat_sound = pygame.mixer.Sound('audio/jump.mp3')
-lose_sound = pygame.mixer.Sound('audio/lose.wav')
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -49,20 +48,16 @@ while game_is_on:
 
 #detect collision with wall
     if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
-        game_is_on = False
-        bg_music.stop()
-        lose_sound.play()
-        scoreboard.game_over()
-        scoreboard.display_final_score()
+        scoreboard.reset()
+        snake.reset()
+
 
 #detect colliosn with tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            bg_music.stop()
-            lose_sound.play()
-            scoreboard.game_over()
-            scoreboard.display_final_score()
+            scoreboard.reset()
+            snake.reset()
+
 
 
 screen.exitonclick()
